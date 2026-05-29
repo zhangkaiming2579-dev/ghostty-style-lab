@@ -373,6 +373,19 @@ h2 {
   font-size: 11px;
 }
 
+.helper-text {
+  margin: -2px 0 10px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.helper-text.subtle {
+  margin: -4px 0 10px;
+  color: #7f8998;
+  font-size: 11px;
+}
+
 .theme-categories {
   display: grid;
   gap: 10px;

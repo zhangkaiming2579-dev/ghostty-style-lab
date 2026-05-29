@@ -44,24 +44,30 @@
 
           <div class="panel-section">
             <div class="section-title">
-              <strong>Light / Dark</strong>
-              <span>跟随系统</span>
+              <strong>跟随系统明暗模式</strong>
+              <span>可手动选两套</span>
             </div>
+            <p class="helper-text">
+              打开后，Ghostty 会跟随 macOS 明亮/深色模式自动切换主题；关闭“自动配对”后，可以分别手动选择两套主题。
+            </p>
             <div class="segmented" data-key="themeMode">
-              <button data-value="single">单主题</button>
-              <button data-value="auto">跟随系统</button>
+              <button data-value="single">固定单主题</button>
+              <button data-value="auto">跟随系统切换</button>
             </div>
             <label class="switch-row">
-              <span>同步 Light/Dark</span>
+              <span>自动配对浅色/深色主题</span>
               <input id="syncLightDark" type="checkbox" />
             </label>
+            <p class="helper-text subtle">
+              想完全自己搭配，就把这个开关关掉，再改下面两个下拉框。
+            </p>
             <div class="light-dark-controls">
               <label class="text-field">
-                <span>浅色主题</span>
+                <span>明亮模式主题</span>
                 <select id="lightTheme"></select>
               </label>
               <label class="text-field">
-                <span>深色主题</span>
+                <span>黑暗模式主题</span>
                 <select id="darkTheme"></select>
               </label>
             </div>
