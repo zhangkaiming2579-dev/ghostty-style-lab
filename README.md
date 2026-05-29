@@ -4,6 +4,20 @@
 
 English documentation is below.
 
+## 界面截图 / Screenshots
+
+### 主题分类和预设 / Theme Browser
+
+![Theme browser](docs/images/theme-browser.png)
+
+### 字体上传和本机字体选择 / Font Controls
+
+![Font controls](docs/images/font-controls.png)
+
+### 窗口样式和背景预览 / Window Controls
+
+![Window controls](docs/images/window-controls.png)
+
 ## 功能亮点
 
 - 可视化调节 Ghostty 的主题、颜色、字体、窗口留白、透明度、背景图、光标和功能项。
