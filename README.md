@@ -59,7 +59,7 @@ chmod +x start.command
 ### 命令行启动
 
 ```sh
-git clone https://github.com/zhangkaiming2579-dev/ghostty-style-lab.git
+git clone https://github.com/km-open-lab/ghostty-style-lab.git
 cd ghostty-style-lab
 npm start
 ```
@@ -167,7 +167,7 @@ chmod +x start.command
 ### Command Line
 
 ```sh
-git clone https://github.com/zhangkaiming2579-dev/ghostty-style-lab.git
+git clone https://github.com/km-open-lab/ghostty-style-lab.git
 cd ghostty-style-lab
 npm start
 ```
