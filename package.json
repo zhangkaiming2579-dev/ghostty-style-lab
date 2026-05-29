@@ -1,0 +1,11 @@
+{
+  "name": "ghostty-style-lab",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "A local visual workbench for designing, importing, and exporting Ghostty terminal configurations.",
+  "scripts": {
+    "dev": "node server.js",
+    "start": "node server.js"
+  }
+}

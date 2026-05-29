@@ -1,0 +1,402 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ghostty Style Lab</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="control-pane">
+        <div class="topbar">
+          <div class="topbar-title">
+            <h1>Ghostty Style Lab</h1>
+            <p id="configPath">读取配置中...</p>
+          </div>
+          <div class="top-actions">
+            <button id="resetBtn" class="secondary-button compact-button" title="恢复默认参数，不自动保存">一键重置</button>
+          </div>
+        </div>
+
+        <nav class="tabbar" id="tabbar" aria-label="调节分类">
+          <button class="active" data-tab="theme">主题</button>
+          <button data-tab="colors">颜色</button>
+          <button data-tab="font">字体</button>
+          <button data-tab="window">窗口</button>
+          <button data-tab="image">背景图</button>
+          <button data-tab="cursor">光标</button>
+          <button data-tab="features">功能</button>
+          <button data-tab="schemes">方案</button>
+          <button data-tab="prompt">提示符</button>
+        </nav>
+
+        <div class="control-scroll">
+        <section class="panel active-panel" data-panel="theme">
+          <h2>主题</h2>
+          <div class="panel-section">
+            <div class="section-title">
+              <strong>风格预设</strong>
+              <span>一键套参数</span>
+            </div>
+            <div class="preset-row" id="presetRow"></div>
+          </div>
+
+          <div class="panel-section">
+            <div class="section-title">
+              <strong>Light / Dark</strong>
+              <span>跟随系统</span>
+            </div>
+            <div class="segmented" data-key="themeMode">
+              <button data-value="single">单主题</button>
+              <button data-value="auto">跟随系统</button>
+            </div>
+            <label class="switch-row">
+              <span>同步 Light/Dark</span>
+              <input id="syncLightDark" type="checkbox" />
+            </label>
+            <div class="light-dark-controls">
+              <label class="text-field">
+                <span>浅色主题</span>
+                <select id="lightTheme"></select>
+              </label>
+              <label class="text-field">
+                <span>深色主题</span>
+                <select id="darkTheme"></select>
+              </label>
+            </div>
+          </div>
+
+          <div class="panel-section">
+            <div class="section-title">
+              <strong>主题分类</strong>
+              <span>按气质选</span>
+            </div>
+            <div class="theme-categories" id="themeCategories"></div>
+          </div>
+
+          <div class="panel-section">
+            <div class="section-title">
+              <strong>全部主题</strong>
+              <span>Ghostty 内置列表</span>
+            </div>
+            <select id="theme"></select>
+            <div class="swatches" id="swatches"></div>
+          </div>
+        </section>
+
+        <section class="panel" data-panel="colors">
+          <h2>手动调色</h2>
+          <div class="color-grid">
+            <label>
+              <span>背景</span>
+              <input id="background" type="color" />
+            </label>
+            <label>
+              <span>文字</span>
+              <input id="foreground" type="color" />
+            </label>
+            <label>
+              <span>选区</span>
+              <input id="selectionBackground" type="color" />
+            </label>
+            <label>
+              <span>选中文字</span>
+              <input id="selectionForeground" type="color" />
+            </label>
+            <label>
+              <span>光标</span>
+              <input id="cursorColor" type="color" />
+            </label>
+          </div>
+          <div class="panel-section">
+            <div class="section-title">
+              <strong>调色板</strong>
+              <span>点一下套颜色</span>
+            </div>
+            <div class="palette-grid" id="paletteGrid"></div>
+          </div>
+        </section>
+
+        <section class="panel" data-panel="font">
+          <h2>字体</h2>
+          <label class="text-field">
+            <span>字体家族</span>
+            <select id="fontFamily"></select>
+          </label>
+          <div class="font-actions">
+            <button id="uploadFontBtn" class="secondary-button">上传字体</button>
+            <button id="refreshFontsBtn" class="secondary-button">刷新列表</button>
+            <input id="fontFile" type="file" accept=".ttf,.otf,.ttc,.woff,.woff2,font/ttf,font/otf,font/collection,font/woff,font/woff2" hidden />
+          </div>
+          <p id="fontHint" class="font-hint">下拉列表来自 Ghostty 能识别的本机字体。上传 TTF/OTF/TTC 会放进用户字体库，保存后 Ghostty 才会真正使用。</p>
+          <label class="field">
+            <span>字号</span>
+            <input id="fontSize" type="range" min="11" max="22" step="0.5" />
+            <output id="fontSizeValue"></output>
+          </label>
+          <label class="field">
+            <span>字重增强</span>
+            <input id="fontThickenStrength" type="range" min="0" max="180" step="5" />
+            <output id="fontThickenStrengthValue"></output>
+          </label>
+          <label class="field">
+            <span>字间距</span>
+            <input id="cellWidth" type="range" min="-4" max="14" step="1" />
+            <output id="cellWidthValue"></output>
+          </label>
+          <label class="field">
+            <span>行高</span>
+            <input id="cellHeight" type="range" min="-8" max="18" step="1" />
+            <output id="cellHeightValue"></output>
+          </label>
+          <label class="field">
+            <span>基线</span>
+            <input id="fontBaseline" type="range" min="-8" max="8" step="1" />
+            <output id="fontBaselineValue"></output>
+          </label>
+          <label class="switch-row">
+            <span>启用字体加粗</span>
+            <input id="fontThicken" type="checkbox" />
+          </label>
+          <div class="font-preview">
+            <div class="font-preview-head">
+              <strong>字体预览</strong>
+              <span>这里看变化最明显</span>
+            </div>
+            <div class="font-sample">
+              <p>中文 Ghostty 终端 AaBbCc 012345</p>
+              <p>~/Desktop/project git:main ❯ npm run dev</p>
+              <p>看字号、行高、字重、基线变化</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel" data-panel="window">
+          <h2>窗口</h2>
+          <label class="field">
+            <span>透明度</span>
+            <input id="backgroundOpacity" type="range" min="0.72" max="1" step="0.01" />
+            <output id="backgroundOpacityValue"></output>
+          </label>
+          <label class="field">
+            <span>毛玻璃</span>
+            <input id="backgroundBlur" type="range" min="0" max="40" step="1" />
+            <output id="backgroundBlurValue"></output>
+          </label>
+          <label class="field">
+            <span>左右留白</span>
+            <input id="paddingX" type="range" min="0" max="28" step="1" />
+            <output id="paddingXValue"></output>
+          </label>
+          <label class="field">
+            <span>上下留白</span>
+            <input id="paddingY" type="range" min="0" max="24" step="1" />
+            <output id="paddingYValue"></output>
+          </label>
+          <label class="field">
+            <span>窗口宽</span>
+            <input id="windowWidth" type="range" min="80" max="180" step="2" />
+            <output id="windowWidthValue"></output>
+          </label>
+          <label class="field">
+            <span>窗口高</span>
+            <input id="windowHeight" type="range" min="22" max="60" step="1" />
+            <output id="windowHeightValue"></output>
+          </label>
+          <label class="switch-row">
+            <span>留白平衡</span>
+            <input id="paddingBalance" type="checkbox" />
+          </label>
+        </section>
+
+        <section class="panel" data-panel="image">
+          <h2>背景图</h2>
+          <div class="upload-row">
+            <button id="uploadImageBtn" class="secondary-button">上传图片</button>
+            <button id="clearImageBtn" class="secondary-button">清除</button>
+            <input id="backgroundImageFile" type="file" accept="image/png,image/jpeg" hidden />
+          </div>
+          <p id="backgroundImageLabel" class="file-label">未选择图片</p>
+          <label class="field">
+            <span>图片透明</span>
+            <input id="backgroundImageOpacity" type="range" min="0" max="1.5" step="0.01" />
+            <output id="backgroundImageOpacityValue"></output>
+          </label>
+          <label class="text-field">
+            <span>位置</span>
+            <select id="backgroundImagePosition">
+              <option value="center">居中</option>
+              <option value="top-center">顶部居中</option>
+              <option value="bottom-center">底部居中</option>
+              <option value="center-left">中左</option>
+              <option value="center-right">中右</option>
+            </select>
+          </label>
+          <div class="segmented segmented-four" data-key="backgroundImageFit">
+            <button data-value="cover">铺满</button>
+            <button data-value="contain">完整</button>
+            <button data-value="stretch">拉伸</button>
+            <button data-value="none">原图</button>
+          </div>
+          <label class="switch-row">
+            <span>重复平铺</span>
+            <input id="backgroundImageRepeat" type="checkbox" />
+          </label>
+        </section>
+
+        <section class="panel" data-panel="cursor">
+          <h2>光标、标题栏和滚动条</h2>
+          <p class="control-label">光标形状</p>
+          <div class="segmented" data-key="cursorStyle">
+            <button data-value="block">块</button>
+            <button data-value="bar">竖线</button>
+            <button data-value="underline">下划线</button>
+          </div>
+          <p class="control-label">标题栏样式</p>
+          <div class="segmented" data-key="titlebarStyle">
+            <button data-value="transparent">透明栏</button>
+            <button data-value="native">原生栏</button>
+            <button data-value="hidden">隐藏栏</button>
+          </div>
+          <p class="control-label">窗口按钮</p>
+          <div class="segmented" data-key="windowButtons">
+            <button data-value="visible">红黄绿</button>
+            <button data-value="hidden">隐藏按钮</button>
+          </div>
+          <p class="control-label">滚动条</p>
+          <div class="segmented" data-key="scrollbar">
+            <button data-value="never">无滚动条</button>
+            <button data-value="system">跟随系统</button>
+          </div>
+          <div class="cursor-effect-preview" id="cursorEffectPreview">
+            <div class="cursor-demo-title">
+              <span></span>
+              <span></span>
+              <span></span>
+              <strong>标题栏预览</strong>
+            </div>
+            <div class="cursor-demo-body">
+              <p><span class="prompt">›</span> 光标效果 <span class="cursor cursor-large" id="cursorPanelPreview"></span></p>
+              <p class="muted">标题栏、按钮和滚动条也会在这里变。</p>
+            </div>
+          </div>
+          <label class="switch-row">
+            <span>默认光标闪烁</span>
+            <input id="cursorBlink" type="checkbox" />
+          </label>
+          <label class="switch-row">
+            <span>提示符也跟随光标形状</span>
+            <input id="promptCursorFollowsStyle" type="checkbox" />
+          </label>
+          <p class="font-hint">Ghostty 的 Shell 集成会默认把提示符光标改成竖线。打开这个开关会生成 no-cursor，让提示符也使用上面选的块、竖线或下划线。闪烁开关只控制默认状态，Claude Code、vim、zsh 插件这类程序仍可能自己改光标闪烁。</p>
+          <label class="switch-row">
+            <span>打字隐藏鼠标</span>
+            <input id="mouseHideWhileTyping" type="checkbox" />
+          </label>
+        </section>
+
+        <section class="panel" data-panel="features">
+          <h2>功能调节</h2>
+          <div class="feature-controls" id="featureControls"></div>
+        </section>
+
+        <section class="panel" data-panel="schemes">
+          <h2>我的方案</h2>
+          <label class="text-field">
+            <span>当前方案名</span>
+            <input id="schemeName" type="text" placeholder="例如：夜间写代码" />
+          </label>
+          <div class="scheme-actions">
+            <button id="saveSchemeBtn" class="primary-button">保存当前方案</button>
+            <button id="refreshSchemesBtn" class="secondary-button">刷新列表</button>
+          </div>
+          <div class="scheme-list" id="schemeList"></div>
+        </section>
+
+        <section class="panel prompt-panel" data-panel="prompt">
+          <h2>命令行提示符</h2>
+          <p>
+            这里的“提示符”指的是每次输入命令前那一段内容，比如当前目录、Git 分支、执行状态、语言版本和小图标。
+            Ghostty 负责窗口、字体、颜色、背景图这些外观；提示符由你的 shell 配置负责，常用工具是 Starship。
+          </p>
+          <div class="prompt-explain">
+            <strong>它能美化什么</strong>
+            <span>路径显示、Git 状态、Node/Python 版本、命令成功失败标记。</span>
+          </div>
+          <div class="prompt-explain">
+            <strong>为什么单独放这里</strong>
+            <span>很多好看的终端截图，其实是 Ghostty 配色加 Starship 提示符一起完成的。</span>
+          </div>
+          <button id="copyPromptBtn" class="secondary-button">复制 Starship 安装命令</button>
+        </section>
+        </div>
+      </section>
+
+      <div
+        class="splitter"
+        id="splitter"
+        role="separator"
+        aria-label="调整左侧控制栏宽度"
+        aria-orientation="vertical"
+        tabindex="0"
+      ></div>
+
+      <section class="preview-pane">
+        <div class="preview-toolbar">
+          <div>
+            <span class="eyebrow">实时预览</span>
+            <h2 id="previewTitle">Catppuccin Mocha</h2>
+          </div>
+          <div class="actions preview-actions">
+            <button id="importBtn" class="secondary-button">导入配置</button>
+            <input id="importFile" type="file" accept=".zip,.conf,.ghostty,text/plain" hidden />
+            <button id="exportBtn" class="secondary-button">导出配置</button>
+            <button id="saveBtn" class="primary-button">保存并热加载</button>
+          </div>
+        </div>
+
+        <div class="stage">
+          <div class="terminal-window" id="terminalPreview">
+            <div class="traffic">
+              <span></span>
+              <span></span>
+              <span></span>
+              <strong>~/km · Claude Code</strong>
+            </div>
+            <div class="terminal-body">
+              <p><span class="prompt">›</span> claude</p>
+              <p class="muted">Claude Code v2.1.150 · Opus 4.7 · API Usage Billing</p>
+              <p><span class="dot"></span> 看到没，现在中文和英文在同一套节奏里。</p>
+              <p><span class="prompt">›</span> ghostty +show-face --string="中文 Ghostty 终端"</p>
+              <p class="selected">U+4E2D « 中 » found in face “Maple Mono NF CN”.</p>
+              <p><span class="green">✓</span> 配色、透明度、留白、光标都可以像调色一样微调。</p>
+              <p><span class="prompt">›</span> npm run build <span class="cursor" id="cursorPreview"></span></p>
+            </div>
+            <div class="preview-resize-handles" aria-label="拖拽调整预览窗口大小">
+              <button class="preview-resize-handle edge north" data-resize="n" aria-label="向上调整预览窗口"></button>
+              <button class="preview-resize-handle edge east" data-resize="e" aria-label="向右调整预览窗口"></button>
+              <button class="preview-resize-handle edge south" data-resize="s" aria-label="向下调整预览窗口"></button>
+              <button class="preview-resize-handle edge west" data-resize="w" aria-label="向左调整预览窗口"></button>
+              <button class="preview-resize-handle corner north-west" data-resize="nw" aria-label="向左上调整预览窗口"></button>
+              <button class="preview-resize-handle corner north-east" data-resize="ne" aria-label="向右上调整预览窗口"></button>
+              <button class="preview-resize-handle corner south-east" data-resize="se" aria-label="向右下调整预览窗口"></button>
+              <button class="preview-resize-handle corner south-west" data-resize="sw" aria-label="向左下调整预览窗口"></button>
+            </div>
+          </div>
+        </div>
+
+        <section class="config-output">
+          <div class="config-head">
+            <h2>生成配置</h2>
+            <span id="status">未保存</span>
+          </div>
+          <div id="validationMessages" class="validation-messages"></div>
+          <pre id="configText"></pre>
+        </section>
+      </section>
+    </main>
+
+    <script src="/app.js"></script>
+  </body>
+</html>
