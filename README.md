@@ -7,6 +7,8 @@ English documentation is below.
 ## 功能亮点
 
 - 可视化调节 Ghostty 的主题、颜色、字体、窗口留白、透明度、背景图、光标和功能项。
+- 支持上传自定义图片作为终端背景，并可调节透明度、位置、缩放和重复方式。
+- 支持上传本地字体文件，或扫描并选择系统已安装字体。
 - 支持导入 `.zip` 配置包、`config`、`.ghostty`、`.conf` 文件，自动解析并填充到界面。
 - 支持导出完整配置包，包含 `config.ghostty`、`themes/`、可选背景图和安装说明。
 - 支持 Light/Dark 自动主题配置，例如 `theme = light:Catppuccin Latte,dark:Catppuccin Mocha`。
@@ -23,6 +25,24 @@ English documentation is below.
 - `/usr/bin/zip` 和 `/usr/bin/unzip`，macOS 默认自带
 
 ## 本地启动
+
+### 一键启动（macOS）
+
+克隆仓库后，直接双击：
+
+```text
+start.command
+```
+
+它会自动进入项目目录、启动本地服务，并打开浏览器到 `http://localhost:5129`。
+
+如果 macOS 提示没有执行权限，先在项目目录运行一次：
+
+```sh
+chmod +x start.command
+```
+
+### 命令行启动
 
 ```sh
 git clone https://github.com/zhangkaiming2579-dev/ghostty-style-lab.git
@@ -95,6 +115,8 @@ A local visual workbench for Ghostty configuration. It turns terminal themes, fo
 ## Highlights
 
 - Visually tune Ghostty themes, colors, fonts, window padding, opacity, backgrounds, cursors, and advanced behavior.
+- Upload custom images as terminal backgrounds, then tune opacity, position, fit, and repeat behavior.
+- Upload local font files, or scan and select fonts already installed on the system.
 - Import `.zip` packages, `config`, `.ghostty`, or `.conf` files and map recognized options back into the UI.
 - Export a complete configuration package with `config.ghostty`, `themes/`, optional background images, and installation notes.
 - Generate Light/Dark theme configuration such as `theme = light:Catppuccin Latte,dark:Catppuccin Mocha`.
@@ -111,6 +133,24 @@ A local visual workbench for Ghostty configuration. It turns terminal themes, fo
 - `/usr/bin/zip` and `/usr/bin/unzip`, available by default on macOS
 
 ## Run Locally
+
+### One-Click Start on macOS
+
+After cloning the repository, double-click:
+
+```text
+start.command
+```
+
+It changes into the project folder, starts the local server, and opens `http://localhost:5129` in your browser.
+
+If macOS says the file is not executable, run this once from the project folder:
+
+```sh
+chmod +x start.command
+```
+
+### Command Line
 
 ```sh
 git clone https://github.com/zhangkaiming2579-dev/ghostty-style-lab.git
